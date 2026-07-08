@@ -20,6 +20,7 @@ GROUP BY year
 ORDER BY year 
 ---------------------------------------------------------------
 --YEAR OVER YEAR GROWTH USING LAG 
+CREATE VIEW yoy_apt AS
 WITH yearly_total AS( -- CTE COMMON TABLE EXPRESSION 
 SELECT 
 year,
@@ -43,6 +44,7 @@ total_apartments - prev_year_total AS yoy_change,
 ROUND(((total_apartments - prev_year_total)*100.0)/prev_year_total,2) AS yoy_growth_pct
 FROM yoy_data
 -------------------------------------------------------------------------------------------
+CREATE VIEW std_yoy_aprtments AS
 WITH yearly_totals AS ( -- STANDARD DEVIATION OF YOY GROWTH 
     SELECT
         year,
@@ -70,6 +72,7 @@ AND year NOT IN (2020,2021);
 ----------------------------------------------------------------------------------------------------------
 
 -- YOY GROWTH OF HOTEL ROOMS
+CREATE VIEW yoy_growth_rooms AS
 WITH yearly_totals AS (
 SELECT 
 year,
@@ -132,6 +135,7 @@ AND prev_year_total IS NOT NULL
 -------------------------------------------------------------------------------------------------------
 
 -- AVG & STD OF YOY GROWTH PERCENTAGE EXCLUDING PANDEMIC MONTHS FOR ROOMS 
+CREATE VIEW avg_std AS
 WITH yearly_totals AS(
 SELECT 
 year,
@@ -163,6 +167,7 @@ WHERE year NOT IN (2020,2021)
 AND prev_year_total IS NOT NULL
 ------------------------------------------------------------------------------------------------
 --QURTERLY GROWTH TREND
+CREATE VIEW quarter_trend AS
 WITH quarter_totals AS (
     SELECT
         year,
@@ -207,5 +212,8 @@ ORDER BY
         WHEN 'Third Quarter' THEN 3
         WHEN 'Fourth Quarter' THEN 4
     END;
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
 
 
